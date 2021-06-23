@@ -44,4 +44,4 @@ terraform
 *.tf
 
 terraform-provider-taplytics
-terraform-provider-taplytics.exe
+terraform-provider-taplytics.exe.dist
