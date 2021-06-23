@@ -1,42 +1,48 @@
-package taplytics_tf
+package datasources
 
 import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/client"
 	"strconv"
 	"time"
 )
 
-func dataSourceBucketing() *schema.Resource {
+func DataSourceVariable() *schema.Resource {
 	return &schema.Resource{
-		ReadContext: dataSourceBucketingRead,
+		ReadContext: dataSourceVariableRead,
 		Schema: map[string]*schema.Schema{
 			"userid": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"bucketing": {
-				Type:     schema.TypeSet,
+			"variable_name": {
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"value": {
+				Type:     schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
 
-func dataSourceBucketingRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*Client)
+func dataSourceVariableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
+	provider := meta.(*client2.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
-	bucketing, err := client.getUserBucketing(userId)
+	var flagKey = d.Get("featureflag_key").(string)
+	isEnabled, err := client.IsFeatureFlagEnabled(userId, flagKey)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
-			Summary:  "Failed to get user bucketing",
-			Detail:   "Failed to get user bucketing: " + err.Error(),
+			Summary:  "Failed to get featureflag",
+			Detail:   "Failed to get featureflag: " + err.Error(),
 		})
 	}
-	if err = d.Set("bucketing", bucketing); err != nil {
+	if err = d.Set("enabled", isEnabled); err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
 			Summary:  "Failed to set key enabled",

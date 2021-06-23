@@ -1,9 +1,11 @@
-package taplytics_tf
+package provider
 
 import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/taplytics/terraform-provider-taplytics/pkg/client"
+	"github.com/taplytics/terraform-provider-taplytics/pkg/datasources"
 )
 
 func Provider() *schema.Provider {
@@ -17,17 +19,16 @@ func Provider() *schema.Provider {
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			"taplytics_featureflags": dataSourceFeatureFlags(),
-			"taplytics_featureflag": dataSourceFeatureFlag(),
-			"taplytics_bucketing": dataSourceBucketing(),
-			"taplytics_variation": dataSourceVariation(),
-			"taplytics_variables": dataSourceVariables(),
-			"taplytics_variable": dataSourceVariable(),
+			"taplytics_featureflags": datasources.DataSourceFeatureFlags(),
+			"taplytics_featureflag":  datasources.DataSourceFeatureFlag(),
+			"taplytics_bucketing":    datasources.DataSourceBucketing(),
+			"taplytics_variation":    datasources.DataSourceVariation(),
+			"taplytics_variables":    datasources.DataSourceVariables(),
+			"taplytics_variable":     datasources.DataSourceVariable(),
 			//"taplytics_config": dataSourceConfig(), Not enabled due to the dynamic nature of it, and not being able to dump the full data to terraform.
 		},
 
-		ResourcesMap: map[string]*schema.Resource{
-		},
+		ResourcesMap: map[string]*schema.Resource{},
 	}
 }
 
@@ -36,7 +37,7 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 	apitoken := d.Get("api_token").(string)
 
 	if apitoken != "" {
-		c := NewClient(apitoken)
+		c := client.NewClient(apitoken)
 		return c, diags
 	}
 

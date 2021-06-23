@@ -1,4 +1,4 @@
-package taplytics_tf
+package client
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ func TestNewClient(t *testing.T) {
 	fmt.Println(featureFlags)
 
 	bucketing, err := client.getUserBucketing("test")
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 	fmt.Println(bucketing)

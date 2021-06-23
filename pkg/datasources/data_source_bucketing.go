@@ -1,31 +1,32 @@
-package taplytics_tf
+package datasources
 
 import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/taplytics/terraform-provider-taplytics/pkg/client"
 	"strconv"
 	"time"
 )
 
-func dataSourceFeatureFlags() *schema.Resource {
+func DataSourceBucketing() *schema.Resource {
 	return &schema.Resource{
-		ReadContext: dataSourceFeatureFlagsRead,
+		ReadContext: dataSourceBucketingRead,
 		Schema: map[string]*schema.Schema{
 			"userid": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"featureflags": {
+			"bucketing": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"name": {
+						"experiment": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"keyname": {
+						"variation": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
@@ -36,23 +37,23 @@ func dataSourceFeatureFlags() *schema.Resource {
 	}
 }
 
-func dataSourceFeatureFlagsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*Client)
+func dataSourceBucketingRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
+	provider := meta.(*client.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
-	resp, err := client.getFeatureFlags(userId)
+	bucketing, err := client.GetUserBucketing(userId)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
-			Summary:  "Failed to get featureflags",
-			Detail:   "Failed to get featureflags: " + err.Error(),
+			Summary:  "Failed to get user bucketing",
+			Detail:   "Failed to get user bucketing: " + err.Error(),
 		})
 	}
-	enabledFlags := flattenFeatureFlagsData(&resp)
-	if err = d.Set("featureflags", enabledFlags); err != nil {
+	flattened := flattenBucketingData(&bucketing)
+	if err = d.Set("bucketing", flattened); err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
-			Summary:  "Failed to set key featureflags",
+			Summary:  "Failed to set key enabled",
 			Detail:   "Failed to set key with featureflags flattened data.",
 		})
 	}
@@ -60,17 +61,18 @@ func dataSourceFeatureFlagsRead(ctx context.Context, d *schema.ResourceData, met
 	return diags
 }
 
-func flattenFeatureFlagsData(featureFlags *[]FeatureFlag) []interface{} {
-	if featureFlags != nil {
-		_flags := make([]interface{}, len(*featureFlags), len(*featureFlags))
-
-		for i, flag := range *featureFlags {
+func flattenBucketingData(bucketing *map[string]string) []interface{} {
+	if bucketing != nil {
+		_flags := make([]interface{}, len(*bucketing), len(*bucketing))
+		i := 0
+		for experiment, variation := range *bucketing {
 			f := make(map[string]interface{})
 
-			f["name"] = flag.Name
-			f["keyname"] = flag.KeyName
+			f["experiment"] = experiment
+			f["variation"] = variation
 
 			_flags[i] = f
+			i++
 		}
 		return _flags
 	}

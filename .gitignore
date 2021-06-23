@@ -42,3 +42,6 @@ terraform
 # Ignore Goland
 .idea
 *.tf
+
+terraform-provider-taplytics
+terraform-provider-taplytics.exe

@@ -1,14 +1,15 @@
-package taplytics_tf
+package datasources
 
 import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/client"
 	"strconv"
 	"time"
 )
 
-func dataSourceVariation() *schema.Resource {
+func DataSourceVariation() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceVariableRead,
 		Schema: map[string]*schema.Schema{
@@ -17,7 +18,7 @@ func dataSourceVariation() *schema.Resource {
 				Required: true,
 			},
 			"experiment": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Required: true,
 			},
 			"variation": {
@@ -29,11 +30,11 @@ func dataSourceVariation() *schema.Resource {
 }
 
 func dataSourceVariationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*Client)
+	provider := meta.(*client2.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
 	var experiment = d.Get("experiment").(string)
-	variation, err := client.getUserVariation(userId, experiment)
+	variation, err := client.GetUserVariation(userId, experiment)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,

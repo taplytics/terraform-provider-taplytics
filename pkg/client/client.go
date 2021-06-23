@@ -1,4 +1,4 @@
-package taplytics_tf
+package client
 
 import (
 	"context"
@@ -27,7 +27,7 @@ func NewClient(token string) *Client {
 	}
 }
 
-func (c *Client) getFeatureFlags(userId string) (featureFlags []FeatureFlag, err error) {
+func (c *Client) GetFeatureFlags(userId string) (featureFlags []FeatureFlag, err error) {
 	attributes := *taplytics.NewUserAttributes()
 	customData := make(map[string]interface{}) // map[string]interface{} | serialized custom data object
 	resp, err := c.API.FeatureFlagsApi.FeatureflagsGet(context.Background()).
@@ -48,7 +48,7 @@ func (c *Client) getFeatureFlags(userId string) (featureFlags []FeatureFlag, err
 	return
 }
 
-func (c *Client) isFeatureFlagEnabled(userId string, key string) (enabled bool, err error) {
+func (c *Client) IsFeatureFlagEnabled(userId string, key string) (enabled bool, err error) {
 	attributes := *taplytics.NewUserAttributes()
 	customData := make(map[string]interface{})
 	resp, err := c.API.FeatureFlagsApi.IsfeatureflagenabledGet(context.Background()).
@@ -73,7 +73,7 @@ func (c *Client) isFeatureFlagEnabled(userId string, key string) (enabled bool, 
 	return
 }
 
-func (c *Client) getUserBucketing(userId string) (bucketing map[string]string, err error) {
+func (c *Client) GetUserBucketing(userId string) (bucketing map[string]string, err error) {
 	attributes := *taplytics.NewUserAttributes()
 	customData := make(map[string]interface{})
 
@@ -96,7 +96,7 @@ func (c *Client) getUserBucketing(userId string) (bucketing map[string]string, e
 	return
 }
 
-func (c *Client) getUserVariables(userId string) (variables []taplytics.Variable, err error) {
+func (c *Client) GetUserVariables(userId string) (variables []taplytics.Variable, err error) {
 	attributes := *taplytics.NewUserAttributes()
 	customData := make(map[string]interface{})
 	variables, _, err = c.API.VariablesApi.VariablesGet(context.Background()).Token(c.Token).UserId(userId).CustomData(customData).Attributes(attributes).Execute()
@@ -105,7 +105,7 @@ func (c *Client) getUserVariables(userId string) (variables []taplytics.Variable
 	}
 	return
 }
-func (c *Client) getUserVariable(userId, variableName string) (variable taplytics.Variable, err error) {
+func (c *Client) GetUserVariable(userId, variableName string) (variable taplytics.Variable, err error) {
 
 	attributes := *taplytics.NewUserAttributes()
 	customData := make(map[string]interface{})
@@ -120,7 +120,7 @@ func (c *Client) getUserVariable(userId, variableName string) (variable taplytic
 	return
 }
 
-func (c *Client) getUserVariation(userId, experiment string) (variation string, err error) {
+func (c *Client) GetUserVariation(userId, experiment string) (variation string, err error) {
 	attributes := *taplytics.NewUserAttributes()
 	customData := make(map[string]interface{})
 	resp, err := c.API.VariationsApi.VariationGet(context.Background()).Token(c.Token).UserId(userId).CustomData(customData).Attributes(attributes).ExperimentName(experiment).Execute()

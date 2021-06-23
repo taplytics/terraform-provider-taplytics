@@ -1,39 +1,40 @@
-package taplytics_tf
+package datasources
 
 import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/client"
 	"strconv"
 	"time"
 )
 
-func dataSourceVariable() *schema.Resource {
+func DataSourceFeatureFlag() *schema.Resource {
 	return &schema.Resource{
-		ReadContext: dataSourceVariableRead,
+		ReadContext: dataSourceFeatureFlagRead,
 		Schema: map[string]*schema.Schema{
 			"userid": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"variable_name": {
-				Type: schema.TypeString,
+			"featureflag_key": {
+				Type:     schema.TypeString,
 				Required: true,
 			},
-			"value": {
-				Type:     schema.TypeString,
+			"enabled": {
+				Type:     schema.TypeBool,
 				Computed: true,
 			},
 		},
 	}
 }
 
-func dataSourceVariableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*Client)
+func dataSourceFeatureFlagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
+	provider := meta.(*client2.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
 	var flagKey = d.Get("featureflag_key").(string)
-	isEnabled, err := client.isFeatureFlagEnabled(userId, flagKey)
+	isEnabled, err := client.IsFeatureFlagEnabled(userId, flagKey)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
