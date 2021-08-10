@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	clientall "github.com/taplytics/terraform-provider-taplytics/pkg/client-all"
-	v3_client "github.com/taplytics/terraform-provider-taplytics/pkg/v3-client"
+	clientall "github.com/taplytics/terraform-provider-taplytics/pkg/clients"
+	v3client "github.com/taplytics/terraform-provider-taplytics/pkg/v3-client"
 
 	"github.com/taplytics/terraform-provider-taplytics/pkg/datasources"
 	"github.com/taplytics/terraform-provider-taplytics/pkg/resources"
@@ -18,7 +18,11 @@ func Provider() *schema.Provider {
 	return &schema.Provider{
 		ConfigureContextFunc: providerConfigure,
 		Schema: map[string]*schema.Schema{
-			"api_token": {
+			"sdk_token": {
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"rest_token": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
@@ -41,21 +45,22 @@ func Provider() *schema.Provider {
 
 func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 	var diags diag.Diagnostics
-	apitoken := d.Get("api_token").(string)
+
 	var c = Client{
-		Token: apitoken,
+		SDKToken:  d.Get("sdk_token").(string),
+		RESTToken: d.Get("rest_token").(string),
 	}
-	if apitoken != "" {
-		c.UAPI = uapi_client.NewClient(apitoken)
+	if c.SDKToken != "" && c.RESTToken != "" {
+		c.UAPI = uapi_client.NewClient(c.SDKToken)
 		// V3 API token might be different
-		c.V3API = v3_client.NewClient(apitoken)
+		c.V3API = v3client.NewClient(c.RESTToken)
 		return c, diags
 	}
 
 	diags = append(diags, diag.Diagnostic{
 		Severity: diag.Error,
 		Summary:  "Unable to create Taplytics client",
-		Detail:   "API Token is required.",
+		Detail:   "REST Token and SDK Token are required.",
 	})
 	return nil, diags
 }

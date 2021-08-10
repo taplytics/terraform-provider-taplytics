@@ -1,4 +1,4 @@
-package client_all
+package clients
 
 import (
 	v3sdk "github.com/taplytics/go-sdk-v3"

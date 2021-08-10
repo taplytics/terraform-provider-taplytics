@@ -42,7 +42,7 @@ func dataSourceVariablesRead(ctx context.Context, d *schema.ResourceData, meta i
 	provider := meta.(*client2.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
-	resp, err := client.GetUserVariables(userId)
+	resp, err := client.UAPI_GetUserVariables(userId)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,

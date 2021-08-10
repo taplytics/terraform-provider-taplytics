@@ -34,7 +34,7 @@ func dataSourceVariationRead(ctx context.Context, d *schema.ResourceData, meta i
 	client := provider
 	var userId = d.Get("userid").(string)
 	var experiment = d.Get("experiment").(string)
-	variation, err := client.GetUserVariation(userId, experiment)
+	variation, err := client.UAPI_GetUserVariation(userId, experiment)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,

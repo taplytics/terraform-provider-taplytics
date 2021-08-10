@@ -4,7 +4,8 @@ import (
 	"context"
 	"github.com/antihax/optional"
 	taplytics "github.com/taplytics/go-sdk-v3"
-	client_all "github.com/taplytics/terraform-provider-taplytics/pkg/client-all"
+	client_all "github.com/taplytics/terraform-provider-taplytics/pkg/clients"
+	"net/http"
 )
 
 type Client client_all.Client
@@ -41,6 +42,14 @@ func (c *Client) CreateFeatureFlag(newFlag taplytics.FeatureFlag) (flag taplytic
 
 	if err != nil {
 		return taplytics.FeatureFlag{}, err
+	}
+	return
+}
+
+func (c *Client) UpdateFeatureFlag(newFlag taplytics.FeatureFlag, featureKey string, updateAction string) (response *http.Response, err error) {
+	response, err = c.V3API.FeatureFlagsApi.UpdateFeatureFlag(context.Background(), newFlag, featureKey, &taplytics.FeatureFlagsApiUpdateFeatureFlagOpts{Action: optional.NewString(updateAction)})
+	if err != nil {
+		return nil, err
 	}
 	return
 }

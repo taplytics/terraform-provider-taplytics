@@ -41,7 +41,7 @@ func dataSourceFeatureFlagsRead(ctx context.Context, d *schema.ResourceData, met
 	provider := meta.(*client2.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
-	resp, err := client.GetFeatureFlags(userId)
+	resp, err := client.UAPI_GetFeatureFlags(userId)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,

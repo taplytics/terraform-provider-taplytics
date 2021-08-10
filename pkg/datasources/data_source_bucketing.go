@@ -41,7 +41,7 @@ func dataSourceBucketingRead(ctx context.Context, d *schema.ResourceData, meta i
 	provider := meta.(*uapi_client.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
-	bucketing, err := client.GetUserBucketing(userId)
+	bucketing, err := client.UAPI_GetUserBucketing(userId)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,

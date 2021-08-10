@@ -34,7 +34,7 @@ func dataSourceVariableRead(ctx context.Context, d *schema.ResourceData, meta in
 	client := provider
 	var userId = d.Get("userid").(string)
 	var flagKey = d.Get("featureflag_key").(string)
-	isEnabled, err := client.IsFeatureFlagEnabled(userId, flagKey)
+	isEnabled, err := client.UAPI_IsFeatureFlagEnabled(userId, flagKey)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
