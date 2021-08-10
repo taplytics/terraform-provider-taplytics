@@ -1,5 +1,8 @@
 # github.com/agext/levenshtein v1.2.2
 github.com/agext/levenshtein
+# github.com/antihax/optional v1.0.0
+## explicit
+github.com/antihax/optional
 # github.com/apparentlymart/go-textseg v1.0.0
 github.com/apparentlymart/go-textseg/textseg
 # github.com/apparentlymart/go-textseg/v13 v13.0.0
@@ -77,9 +80,12 @@ github.com/mitchellh/mapstructure
 github.com/mitchellh/reflectwalk
 # github.com/oklog/run v1.0.0
 github.com/oklog/run
-# github.com/taplytics/go-sdk v0.0.1
+# github.com/taplytics/go-sdk-v3 v0.0.0-20210722171038-fc5d2a76efbd
 ## explicit
-github.com/taplytics/go-sdk
+github.com/taplytics/go-sdk-v3
+# github.com/taplytics/gosdk v0.0.0-20210618134113-eefab0b12596
+## explicit
+github.com/taplytics/gosdk
 # github.com/vmihailenco/msgpack v4.0.4+incompatible
 github.com/vmihailenco/msgpack
 github.com/vmihailenco/msgpack/codes

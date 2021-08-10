@@ -46,6 +46,8 @@ github.com/agl/ed25519 v0.0.0-20170116200512-5312a6153412/go.mod h1:WPjqKcmVOxf0
 github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7/go.mod h1:6zEj6s6u/ghQa61ZWa/C2Aw3RkjiTBOix7dkqa1VLIs=
 github.com/andybalholm/crlf v0.0.0-20171020200849-670099aa064f/go.mod h1:k8feO4+kXDxro6ErPXBRTJ/ro2mf0SsFG8s7doP9kJE=
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
+github.com/antihax/optional v1.0.0 h1:xK2lYat7ZLaVVcIuj82J8kIro4V6kDe0AUDFboUCwcg=
+github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/apparentlymart/go-cidr v1.0.1/go.mod h1:EBcsNrHc3zQeuaeCeCtQruQm+n9/YjEn/vI25Lg7Gwc=
 github.com/apparentlymart/go-dump v0.0.0-20180507223929-23540a00eaa3/go.mod h1:oL81AME2rN47vu18xqj1S1jPIPuN7afo62yKTNn3XMM=
 github.com/apparentlymart/go-dump v0.0.0-20190214190832-042adf3cf4a0 h1:MzVXffFUye+ZcSR6opIgz9Co7WcDx6ZcY+RjfFHoA0I=
@@ -262,6 +264,10 @@ github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5Cc
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/taplytics/go-sdk v0.0.1 h1:aW8fH3DkCj5lOn9uS1NAlX1Nlw/e+Za6/0Th3d9DtGc=
 github.com/taplytics/go-sdk v0.0.1/go.mod h1:K+yiJrG7AulEBwXv7SnzkXhcqpqH2Y4TDMvsj0fygHg=
+github.com/taplytics/go-sdk-v3 v0.0.0-20210722171038-fc5d2a76efbd h1:duG5oC5kFH8krzd3v2xbizuYob9UCGrFhCUC3mmFYio=
+github.com/taplytics/go-sdk-v3 v0.0.0-20210722171038-fc5d2a76efbd/go.mod h1:gcrOfwE31dnOhUqw6wbPvAYAjTHIfgtc+C6AGYs12CQ=
+github.com/taplytics/gosdk v0.0.0-20210618134113-eefab0b12596 h1:6pa7etSxBCooUT8HPe8Pmjg3HEuxq6CTlRBXVrO60CA=
+github.com/taplytics/gosdk v0.0.0-20210618134113-eefab0b12596/go.mod h1:t3llwwwrqaoYAt2XjfvIDMHCaMmPDrNFJDeof2i8l2w=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack v4.0.4+incompatible h1:dSLoQfGFAo3F6OoNhwUmLwVgaUXK79GlxNBwueZn0xI=

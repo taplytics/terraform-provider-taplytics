@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/client"
+	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
 	"strconv"
 	"time"
 )

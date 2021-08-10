@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	taplytics "github.com/taplytics/go-sdk"
-	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/client"
+	"github.com/taplytics/gosdk"
+	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
 	"strconv"
 	"time"
 )
@@ -62,7 +62,7 @@ func dataSourceVariablesRead(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
-func flattenVariablesData(variables *[]taplytics.Variable) []interface{} {
+func flattenVariablesData(variables *[]gosdk.Variable) []interface{} {
 	if variables != nil {
 		_flags := make([]interface{}, len(*variables), len(*variables))
 
