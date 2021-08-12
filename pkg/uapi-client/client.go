@@ -1,10 +1,10 @@
-package uapi_client
+package uapi
 
 import (
 	"context"
 	"encoding/json"
 	uapisdk "github.com/taplytics/gosdk"
-	client_all "github.com/taplytics/terraform-provider-taplytics/pkg/clients"
+	"github.com/taplytics/terraform-provider-taplytics/pkg/clients"
 	"io/ioutil"
 	"strconv"
 )
@@ -14,7 +14,7 @@ type FeatureFlag struct {
 	KeyName string `json:"keyName"`
 }
 
-type Client client_all.Client
+type Client clients.Client
 
 func NewClient(token string) *uapisdk.APIClient {
 	configuration := uapisdk.NewConfiguration()

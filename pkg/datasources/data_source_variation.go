@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
+	uapi "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
 	"strconv"
 	"time"
 )
@@ -30,7 +30,7 @@ func DataSourceVariation() *schema.Resource {
 }
 
 func dataSourceVariationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*client2.Client)
+	provider := meta.(*uapi.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
 	var experiment = d.Get("experiment").(string)

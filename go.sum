@@ -262,10 +262,8 @@ github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81P
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/taplytics/go-sdk v0.0.1 h1:aW8fH3DkCj5lOn9uS1NAlX1Nlw/e+Za6/0Th3d9DtGc=
-github.com/taplytics/go-sdk v0.0.1/go.mod h1:K+yiJrG7AulEBwXv7SnzkXhcqpqH2Y4TDMvsj0fygHg=
-github.com/taplytics/go-sdk-v3 v0.0.0-20210722171038-fc5d2a76efbd h1:duG5oC5kFH8krzd3v2xbizuYob9UCGrFhCUC3mmFYio=
-github.com/taplytics/go-sdk-v3 v0.0.0-20210722171038-fc5d2a76efbd/go.mod h1:gcrOfwE31dnOhUqw6wbPvAYAjTHIfgtc+C6AGYs12CQ=
+github.com/taplytics/go-sdk-v3 v0.0.0-20210811145832-52be82c49e25 h1:JxI5bnbpX5xiGqDaq246wPur7bFM04z8tp6Zq1UafK8=
+github.com/taplytics/go-sdk-v3 v0.0.0-20210811145832-52be82c49e25/go.mod h1:gcrOfwE31dnOhUqw6wbPvAYAjTHIfgtc+C6AGYs12CQ=
 github.com/taplytics/gosdk v0.0.0-20210618134113-eefab0b12596 h1:6pa7etSxBCooUT8HPe8Pmjg3HEuxq6CTlRBXVrO60CA=
 github.com/taplytics/gosdk v0.0.0-20210618134113-eefab0b12596/go.mod h1:t3llwwwrqaoYAt2XjfvIDMHCaMmPDrNFJDeof2i8l2w=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=

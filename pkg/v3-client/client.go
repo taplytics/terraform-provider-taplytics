@@ -4,11 +4,11 @@ import (
 	"context"
 	"github.com/antihax/optional"
 	taplytics "github.com/taplytics/go-sdk-v3"
-	client_all "github.com/taplytics/terraform-provider-taplytics/pkg/clients"
+	"github.com/taplytics/terraform-provider-taplytics/pkg/clients"
 	"net/http"
 )
 
-type Client client_all.Client
+type Client clients.Client
 
 func NewClient(token string) *taplytics.APIClient {
 	configuration := taplytics.NewConfiguration()
@@ -18,14 +18,17 @@ func NewClient(token string) *taplytics.APIClient {
 	return apiClient
 }
 
-func (c *Client) GetFeatureFlags(status string, pageNum int32) (flags []taplytics.FeatureFlag, err error) {
-	flags, _, err = c.V3API.FeatureFlagsApi.GetFeatureFlags(context.Background(), &taplytics.FeatureFlagsApiGetFeatureFlagsOpts{
-		Status:  optional.NewString(status),
-		PageNum: optional.NewInt32(pageNum),
+func (c *Client) GetFeatureFlags(status, paginationToken string, perPage int32) (flags []taplytics.FeatureFlag, err error) {
+	resp, _, err := c.V3API.FeatureFlagsApi.GetFeatureFlags(context.Background(), &taplytics.FeatureFlagsApiGetFeatureFlagsOpts{
+		Status:          optional.NewInterface(status),
+		PaginationToken: optional.NewString(paginationToken),
+		PerPage:         optional.NewInt32(perPage),
 	})
+
 	if err != nil {
 		return nil, err
 	}
+	flags = resp.FeatureFlags
 	return
 }
 
@@ -38,7 +41,14 @@ func (c *Client) GetFeatureFlag(featurekey string) (flag taplytics.FeatureFlag, 
 }
 
 func (c *Client) CreateFeatureFlag(newFlag taplytics.FeatureFlag) (flag taplytics.FeatureFlag, err error) {
-	flag, _, err = c.V3API.FeatureFlagsApi.CreateFeatureFlag(context.Background(), newFlag)
+	flag, _, err = c.V3API.FeatureFlagsApi.CreateFeatureFlag(context.Background(), taplytics.FeatureFlagCreationBody{
+		Name:        "",
+		Key:         "",
+		Description: "",
+		Tags:        nil,
+		Audience:    nil,
+		Rollout:     nil,
+	})
 
 	if err != nil {
 		return taplytics.FeatureFlag{}, err
@@ -46,8 +56,22 @@ func (c *Client) CreateFeatureFlag(newFlag taplytics.FeatureFlag) (flag taplytic
 	return
 }
 
-func (c *Client) UpdateFeatureFlag(newFlag taplytics.FeatureFlag, featureKey string, updateAction string) (response *http.Response, err error) {
-	response, err = c.V3API.FeatureFlagsApi.UpdateFeatureFlag(context.Background(), newFlag, featureKey, &taplytics.FeatureFlagsApiUpdateFeatureFlagOpts{Action: optional.NewString(updateAction)})
+func (c *Client) UpdateFeatureFlag(newFlag taplytics.FeatureFlag, featureKey string, updateAction string) (flag taplytics.FeatureFlag, err error) {
+	flag, _, err = c.V3API.FeatureFlagsApi.UpdateFeatureFlag(context.Background(), taplytics.FeatureFlagUpdateBody{
+		Name:        "",
+		Description: "",
+		Tags:        nil,
+		Audience:    nil,
+		Rollout:     nil,
+	}, featureKey)
+	if err != nil {
+		return taplytics.FeatureFlag{}, err
+	}
+	return
+}
+
+func (c *Client) DeleteFeatureFlag(featureKey string) (response *http.Response, err error) {
+	response, err = c.V3API.FeatureFlagsApi.DeleteFeatureFlag(context.Background(), featureKey)
 	if err != nil {
 		return nil, err
 	}

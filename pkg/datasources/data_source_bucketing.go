@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
+	uapi "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
 	"strconv"
 	"time"
 )
@@ -38,7 +38,7 @@ func DataSourceBucketing() *schema.Resource {
 }
 
 func dataSourceBucketingRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*uapi_client.Client)
+	provider := meta.(*uapi.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
 	bucketing, err := client.UAPI_GetUserBucketing(userId)

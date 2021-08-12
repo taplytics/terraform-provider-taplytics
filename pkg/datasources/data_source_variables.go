@@ -5,7 +5,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/taplytics/gosdk"
-	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
+	uapi "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
 	"strconv"
 	"time"
 )
@@ -39,7 +39,7 @@ func DataSourceVariables() *schema.Resource {
 }
 
 func dataSourceVariablesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*client2.Client)
+	provider := meta.(*uapi.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
 	resp, err := client.UAPI_GetUserVariables(userId)

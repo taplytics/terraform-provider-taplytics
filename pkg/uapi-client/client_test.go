@@ -1,4 +1,4 @@
-package uapi_client
+package uapi
 
 import (
 	"fmt"

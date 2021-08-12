@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	client2 "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
+	uapi "github.com/taplytics/terraform-provider-taplytics/pkg/uapi-client"
 	"strconv"
 	"time"
 )
@@ -38,7 +38,7 @@ func DataSourceFeatureFlags() *schema.Resource {
 }
 
 func dataSourceFeatureFlagsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
-	provider := meta.(*client2.Client)
+	provider := meta.(*uapi.Client)
 	client := provider
 	var userId = d.Get("userid").(string)
 	resp, err := client.UAPI_GetFeatureFlags(userId)
@@ -61,7 +61,7 @@ func dataSourceFeatureFlagsRead(ctx context.Context, d *schema.ResourceData, met
 	return diags
 }
 
-func flattenFeatureFlagsData(featureFlags *[]client2.FeatureFlag) []interface{} {
+func flattenFeatureFlagsData(featureFlags *[]uapi.FeatureFlag) []interface{} {
 	if featureFlags != nil {
 		_flags := make([]interface{}, len(*featureFlags), len(*featureFlags))
 

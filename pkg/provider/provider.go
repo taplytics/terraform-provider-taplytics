@@ -51,7 +51,7 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 		RESTToken: d.Get("rest_token").(string),
 	}
 	if c.SDKToken != "" && c.RESTToken != "" {
-		c.UAPI = uapi_client.NewClient(c.SDKToken)
+		c.UAPI = uapi.NewClient(c.SDKToken)
 		// V3 API token might be different
 		c.V3API = v3client.NewClient(c.RESTToken)
 		return c, diags
